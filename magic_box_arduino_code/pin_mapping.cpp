@@ -5,3 +5,5 @@
 
 #define BUTTON1 6
 #define BUTTON2 5
+
+#define RGB_LED_PIN 3

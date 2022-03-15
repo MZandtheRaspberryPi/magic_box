@@ -38,7 +38,7 @@ namespace states
     analogWrite(blue_led_pin, 0);
     while (true)
     {
-      lights::show_left_pattern();
+      lights::show_loop_pattern();
       bool left = buttons::is_button_1_pressed(button_1_pin);
       bool right = buttons::is_button_2_pressed(button_2_pin);
       if (left && right)

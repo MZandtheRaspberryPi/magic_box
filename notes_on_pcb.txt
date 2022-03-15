@@ -1,0 +1,21 @@
+may need pull up resistors on data line or something to request 1 amp
+
+power management IC, rechner powered, so can not short circuit
+
+resistor in data line of led strip, less noise, less glitches
+
+traces too thin, 6 mils is only 200 mA
+
+ground planes good
+
+switch by power in
+
+electrity flows right back to power, good
+
+thicker trace, only for LEDs
+
+6mil is min for signal trace.
+
+standard, 8 mil signals. then bigger for power, main power trace 1,27mm often.
+
+capacitors, viel, 1000micro farrad. big by leds, small by usb.
