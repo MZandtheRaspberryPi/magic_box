@@ -1,0 +1,13 @@
+have to check clearance for acryllic over leds. the cables take up some z height i didnt plan for...
+
+have to check clearance for acryllic on the sides. the mounting on the sides isnt too wide and i need to make sure the acryllic will fit.
+
+usb hole is on the wrong side lol. as lights are towards the front of the box, the latch, so that when latch is open they are above.
+
+top is fragile and easily broken. removing supports i nearly broke it. also screwing into it i caused some cracks.
+
+screw hole size is maybe too small for the self tapping screws. i caused some cracks screwing in.
+
+the mounts for the pcb underneath dont have enough meat on the body, they barely cover the hole for the nutt. they tore off with the support
+
+the pcb mounts are slightly too short, so the screw pushes the led up a bit. a millimeter or two longer should help.
