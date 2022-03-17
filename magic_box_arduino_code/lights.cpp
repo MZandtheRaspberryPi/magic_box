@@ -98,7 +98,9 @@ namespace lights
       {true, true, true}
   };
 
-
+  byte GLOBAL_R{255};
+  byte GLOBAL_G{0};
+  byte GLOBAL_B{0};
 
   
   void show_left_pattern()
@@ -161,6 +163,24 @@ namespace lights
   MagicBoxLeds::MagicBoxLeds(int num_leds, int loop_rate_hz) : num_leds_(num_leds), loop_rate_hz_(loop_rate_hz)
   {
     
+  }
+
+void MagicBoxLeds::blinkLight(int pin, byte intensity, bool& on)
+  {
+    if (isTimeToUpdate())
+    {
+      if (on)
+      {
+        on = false;
+        analogWrite(pin, 0);
+      }
+      else
+      {
+        on = true;
+        analogWrite(pin, intensity);
+      }
+      
+    }
   }
 
   void MagicBoxLeds::reset()
@@ -274,7 +294,7 @@ namespace lights
     }
     
   }
-  void MagicBoxLeds::walkLEDArray()
+  void MagicBoxLeds::walkLEDArray(int r, int g, int b)
   {
     if (isTimeToUpdate())
     {
@@ -284,15 +304,15 @@ namespace lights
       {
         current_index_ = 0;
       }
-      leds[current_index_] = CRGB(255, 0, 0);
+      leds[current_index_] = CRGB(r, g, b);
     }
     FastLED.show();
   }
 
 
-  void show_loop_pattern(MagicBoxLeds& magic_leds)
+  void show_loop_pattern(MagicBoxLeds& magic_leds, int r, int g, int b)
   {
-    magic_leds.walkLEDArray();
+    magic_leds.walkLEDArray(r, g, b);
   }
 
 

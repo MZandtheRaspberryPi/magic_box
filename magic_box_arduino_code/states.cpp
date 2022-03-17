@@ -64,10 +64,11 @@ namespace states
     analogWrite(red_led_pin, 150);
     analogWrite(green_led_pin, 0);
     analogWrite(blue_led_pin, 0);
+    lights::zero_leds();
     lights::MagicBoxLeds magic_leds{lights::NUM_LED, 20};
     while (true)
     {
-      lights::show_loop_pattern(magic_leds);
+      lights::show_loop_pattern(magic_leds, lights::GLOBAL_R, lights::GLOBAL_G, lights::GLOBAL_B);
       bool left = buttons::is_button_1_pressed(button_1_pin);
       bool right = buttons::is_button_2_pressed(button_2_pin);
       if (left && right)
@@ -94,7 +95,7 @@ namespace states
 
     while (true)
     {
-      if (magic_leds.scrollLetter(letters_to_spell[current_letter], 255, 0, 0))
+      if (magic_leds.scrollLetter(letters_to_spell[current_letter], lights::GLOBAL_R, lights::GLOBAL_G, lights::GLOBAL_B))
       {
         if (current_letter + 1 == length_of_letters)
         {
@@ -144,18 +145,81 @@ namespace states
                           const int& button_2_pin)
   {
     Serial.println("In do_light_config");
-    analogWrite(red_led_pin, 130);
-    analogWrite(green_led_pin, 130);
-    analogWrite(blue_led_pin, 130);
+    analogWrite(red_led_pin, 0);
+    analogWrite(green_led_pin, 0);
+    analogWrite(blue_led_pin, 0);
     lights::zero_leds();
+    lights::MagicBoxLeds magic_leds{lights::NUM_LED, 20};
+    lights::MagicBoxLeds magic_leds_blink{lights::NUM_LED, 20};
+    int rgb_index{0};
+    bool on = false;
     while (true)
     {
-      lights::show_left_pattern();
+      lights::show_loop_pattern(magic_leds, lights::GLOBAL_R, lights::GLOBAL_G, lights::GLOBAL_B);
       bool left = buttons::is_button_1_pressed(button_1_pin);
       bool right = buttons::is_button_2_pressed(button_2_pin);
       if (left && right)
       {
         break;
+      }
+      else if (left)
+      {
+        rgb_index++;
+        if (rgb_index == 3)
+        {
+          rgb_index = 0;
+        }
+        magic_leds_blink.reset();
+        lights::zero_leds();
+        
+        analogWrite(red_led_pin, 0);
+        analogWrite(green_led_pin, 0);
+        analogWrite(blue_led_pin, 0);
+
+        /*
+        if (rgb_index == 0 && lights::GLOBAL_R < 30)
+        {
+          lights::GLOBAL_R = 30;
+        }
+        else if (rgb_index == 1 && lights::GLOBAL_G < 30)
+        {
+          lights::GLOBAL_G = 30;
+        }
+        else if (rgb_index == 2 && lights::GLOBAL_B < 30)
+        {
+          lights::GLOBAL_B = 30;
+        }
+        */
+
+        
+      }
+      else if (right)
+      {
+        if (rgb_index == 0)
+        {
+          lights::GLOBAL_R += 10;
+        }
+        else if (rgb_index == 1)
+        {
+          lights::GLOBAL_G += 10;
+        }
+        else
+        {
+          lights::GLOBAL_B += 10;
+        }
+      }
+
+      if (rgb_index == 0)
+      {
+        magic_leds_blink.blinkLight(red_led_pin, lights::GLOBAL_R, on);
+      }
+      else if (rgb_index == 1)
+      {
+        magic_leds_blink.blinkLight(green_led_pin, lights::GLOBAL_G, on);
+      }
+      else
+      {
+        magic_leds_blink.blinkLight(blue_led_pin, lights::GLOBAL_B, on);
       }
     }
     return STATE_LEFTDISPLAY;

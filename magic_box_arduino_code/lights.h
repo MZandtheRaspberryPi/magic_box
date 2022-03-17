@@ -26,6 +26,10 @@ namespace lights
   extern bool u_letter[NUM_ROWS][3];
   extern bool y_letter[NUM_ROWS][3];
   extern bool z_letter[NUM_ROWS][3];
+
+  extern byte GLOBAL_R;
+  extern byte GLOBAL_G;
+  extern byte GLOBAL_B;
     
   void show_left_pattern();
 
@@ -33,10 +37,11 @@ namespace lights
   {
     public:
       MagicBoxLeds(int num_leds, int loop_rate_hz);
-      void walkLEDArray();
+      void walkLEDArray(int r, int g, int b);
       bool MagicBoxLeds::scrollTextLeft(bool letter[5][3], int r, int g, int b);
       bool MagicBoxLeds::scrollLetter(int letter, int r, int g, int b);
       void reset();
+      void blinkLight(int pin, byte intensity, bool& on);
     private:
       bool isTimeToUpdate();
       unsigned long last_led_change_time{0};
@@ -46,7 +51,7 @@ namespace lights
     
   };
 
-  void show_loop_pattern(MagicBoxLeds& magic_leds);
+  void show_loop_pattern(MagicBoxLeds& magic_leds, int r, int g, int b);
 
   void zero_leds();
   void show_heart();
