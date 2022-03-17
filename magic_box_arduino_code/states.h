@@ -6,7 +6,6 @@
 #include "lights.h"
 #include "buttons.h"
 
-
 namespace states
 {
 

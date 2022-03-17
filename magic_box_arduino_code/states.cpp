@@ -88,9 +88,25 @@ namespace states
     analogWrite(blue_led_pin, 150);
     lights::zero_leds();
     lights::MagicBoxLeds magic_leds{lights::NUM_LED, 5};
+    int length_of_letters = 4;
+    int current_letter{0};
+    int letters_to_spell[] = {105, 122, 122, 121};
+
     while (true)
     {
-      magic_leds.scrollTextLeft(lights::a_letter, 255, 0, 0);
+      if (magic_leds.scrollLetter(letters_to_spell[current_letter], 255, 0, 0))
+      {
+        if (current_letter + 1 == length_of_letters)
+        {
+          current_letter = 0;
+        }
+        else
+        {
+          current_letter++;
+        }
+        magic_leds.reset();
+      }
+      
       bool left = buttons::is_button_1_pressed(button_1_pin);
       bool right = buttons::is_button_2_pressed(button_2_pin);
       if (left && right)

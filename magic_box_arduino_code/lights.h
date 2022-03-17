@@ -14,8 +14,19 @@ namespace lights
 
   extern int led_matrix[NUM_ROWS][NUM_COLS];
 
+
   extern bool a_letter[NUM_ROWS][3];
-  
+  extern bool d_letter[NUM_ROWS][3];
+  extern bool h_letter[NUM_ROWS][3];
+  extern bool i_letter[NUM_ROWS][3];
+  extern bool m_letter[NUM_ROWS][3];
+  extern bool n_letter[NUM_ROWS][3];
+  extern bool r_letter[NUM_ROWS][3];
+  extern bool s_letter[NUM_ROWS][3];
+  extern bool u_letter[NUM_ROWS][3];
+  extern bool y_letter[NUM_ROWS][3];
+  extern bool z_letter[NUM_ROWS][3];
+    
   void show_left_pattern();
 
   class MagicBoxLeds
@@ -23,7 +34,9 @@ namespace lights
     public:
       MagicBoxLeds(int num_leds, int loop_rate_hz);
       void walkLEDArray();
-      void MagicBoxLeds::scrollTextLeft(bool letter[5][3], int r, int g, int b);
+      bool MagicBoxLeds::scrollTextLeft(bool letter[5][3], int r, int g, int b);
+      bool MagicBoxLeds::scrollLetter(int letter, int r, int g, int b);
+      void reset();
     private:
       bool isTimeToUpdate();
       unsigned long last_led_change_time{0};

@@ -13,6 +13,94 @@ namespace lights
       {true, false, true},
       {true, false, true}
   };
+
+  bool d_letter[NUM_ROWS][3] =
+  {
+      {true, true, false},
+      {true, false, true},
+      {true, false, true},
+      {true, false, true},
+      {true, true, false}
+  };
+  bool h_letter[NUM_ROWS][3] =
+  {
+      {true, false, true},
+      {true, false, true},
+      {true, true, true},
+      {true, false, true},
+      {true, false, true}
+  };
+
+  bool i_letter[NUM_ROWS][3] =
+  {
+      {true, true, true},
+      {false, true, false},
+      {false, true, false},
+      {false, true, false},
+      {true, true, true}
+  };
+  bool m_letter[NUM_ROWS][3] =
+  {
+      {true, false, true},
+      {true, true, true},
+      {true, true, true},
+      {true, false, true},
+      {true, false, true}
+  };
+  bool n_letter[NUM_ROWS][3] =
+  {
+      {true, false, true},
+      {true, true, true},
+      {true, true, true},
+      {true, false, true},
+      {true, false, true}
+  };
+  bool r_letter[NUM_ROWS][3] =
+  {
+      {true, true, true},
+      {true, false, true},
+      {true, true, true},
+      {true, true, false},
+      {true, false, true}
+  };
+  bool s_letter[NUM_ROWS][3] =
+  {
+      {true, true, true},
+      {true, false, false},
+      {true, true, true},
+      {false, false, true},
+      {true, true, true}
+  };
+  bool u_letter[NUM_ROWS][3] =
+  {
+      {true, false, true},
+      {true, false, true},
+      {true, false, true},
+      {true, false, true},
+      {true, true, true}
+  };
+
+  bool y_letter[NUM_ROWS][3] =
+  {
+      {true, false, true},
+      {true, true, true},
+      {false, true, false},
+      {false, true, false},
+      {false, true, false}
+  };
+
+  bool z_letter[NUM_ROWS][3] =
+  {
+      {true, true, true},
+      {false, false, true},
+      {false, true, false},
+      {true, false, false},
+      {true, true, true}
+  };
+
+
+
+  
   void show_left_pattern()
   {
     leds[0] = CRGB(255, 0, 0);
@@ -74,7 +162,68 @@ namespace lights
   {
     
   }
-  void MagicBoxLeds::scrollTextLeft(bool letter[5][3], int r, int g, int b)
+
+  void MagicBoxLeds::reset()
+  {
+      last_led_change_time = 0;
+      current_index_ = 0;
+  }
+
+  bool MagicBoxLeds::scrollLetter(int letter, int r, int g, int b)
+  {
+    switch(letter)
+    {
+    case 97: {  
+               return scrollTextLeft(a_letter, r, g, b);
+               break;
+            }
+    case 100: {  
+           return scrollTextLeft(d_letter, r, g, b);
+           break;
+        } 
+    case 104: {  
+           return scrollTextLeft(h_letter, r, g, b);
+           break;
+        } 
+    case 105: {  
+           return scrollTextLeft(i_letter, r, g, b);
+           break;
+        } 
+    case 109: {  
+           return scrollTextLeft(m_letter, r, g, b);
+           break;
+        } 
+    case 110: {  
+           return scrollTextLeft(n_letter, r, g, b);
+           break;
+        } 
+    case 114: {  
+           return scrollTextLeft(r_letter, r, g, b);
+           break;
+        } 
+    case 115: {  
+           return scrollTextLeft(s_letter, r, g, b);
+           break;
+        } 
+    case 117: {  
+           return scrollTextLeft(u_letter, r, g, b);
+           break;
+        } 
+    case 121: {  
+           return scrollTextLeft(y_letter, r, g, b);
+           break;
+        } 
+    case 122: {  
+           return scrollTextLeft(z_letter, r, g, b);
+           break;
+        } 
+    default: {
+             return false;
+             break;
+            }
+    }
+  }
+  bool MagicBoxLeds::scrollTextLeft(bool letter[5][3], int r, int g, int b)
   {
     if (isTimeToUpdate())
     {
@@ -82,7 +231,7 @@ namespace lights
       // we want to scroll all the way off the screen, so permit starting on 6 - 8, -2, as we will add 2 to it and get to 0
       if (current_index_ > 8)
       {
-        current_index_ = 1;
+        return true;
       }
       else
       {
@@ -109,6 +258,7 @@ namespace lights
       
     }
     FastLED.show();
+    return false;
   }
 
   bool MagicBoxLeds::isTimeToUpdate()
