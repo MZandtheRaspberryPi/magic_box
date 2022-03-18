@@ -6,4 +6,4 @@
 #define BUTTON1 6
 #define BUTTON2 5
 
-#define LED_PIN     A3
+#define LED_PIN     A2

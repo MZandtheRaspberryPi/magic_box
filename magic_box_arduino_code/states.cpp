@@ -65,10 +65,9 @@ namespace states
     analogWrite(green_led_pin, 0);
     analogWrite(blue_led_pin, 0);
     lights::zero_leds();
-    lights::MagicBoxLeds magic_leds{lights::NUM_LED, 20};
+    lights::show_heart();
     while (true)
     {
-      lights::show_loop_pattern(magic_leds, lights::GLOBAL_R, lights::GLOBAL_G, lights::GLOBAL_B);
       bool left = buttons::is_button_1_pressed(button_1_pin);
       bool right = buttons::is_button_2_pressed(button_2_pin);
       if (left && right)
@@ -89,9 +88,9 @@ namespace states
     analogWrite(blue_led_pin, 150);
     lights::zero_leds();
     lights::MagicBoxLeds magic_leds{lights::NUM_LED, 5};
-    int length_of_letters = 4;
+    int length_of_letters = 5;
     int current_letter{0};
-    int letters_to_spell[] = {105, 122, 122, 121};
+    int letters_to_spell[] = {100, 97, 114, 115, 104};
 
     while (true)
     {
@@ -127,9 +126,26 @@ namespace states
     analogWrite(green_led_pin, 150);
     analogWrite(blue_led_pin, 0);
     lights::zero_leds();
-    lights::show_heart();
+    lights::MagicBoxLeds magic_leds{lights::NUM_LED, 5};
+    int length_of_letters = 7;
+    int current_letter{0};
+    int letters_to_spell[] = {97, 110, 115, 104, 117, 109, 97};
+
     while (true)
     {
+      if (magic_leds.scrollLetter(letters_to_spell[current_letter], lights::GLOBAL_R, lights::GLOBAL_G, lights::GLOBAL_B))
+      {
+        if (current_letter + 1 == length_of_letters)
+        {
+          current_letter = 0;
+        }
+        else
+        {
+          current_letter++;
+        }
+        magic_leds.reset();
+      }
+      
       bool left = buttons::is_button_1_pressed(button_1_pin);
       bool right = buttons::is_button_2_pressed(button_2_pin);
       if (left && right)
